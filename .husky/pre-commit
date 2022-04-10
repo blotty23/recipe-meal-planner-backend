@@ -1,4 +1,21 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm test
+## Check not on main branch
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "main" ]; then
+  echo "\n❌ You can't commit directly to main branch"
+  exit 1
+fi
+echo "\n✅ You're commiting to branch: $branch \n---"
+
+
+## Run tests
+echo "⏰ Now running tests...."
+yarn test
+
+echo "✅ Tests passed! \n---"
+
+## All good, commit away
+echo "🚀🚀 -- Committing to branch: $branch -- 🚀🚀\n\nCommit details: \n"
