@@ -1,0 +1,19 @@
+name: Run tests
+on: workflow_call
+jobs:
+    run-jest-tests:
+        name: Run jest tests
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup DynamoDB Local
+              uses: rrainn/dynamodb-action@v2.0.0
+              with:
+                  port: 8000
+                  cors: "*"
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version-file: ".nvmrc"
+            - run: npm install yarn
+            - run: yarn ci-install
+            - run: yarn test

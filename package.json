@@ -1,0 +1,21 @@
+{
+    "name": "recipie-meal-planner-backend",
+    "version": "1.0.0",
+    "description": "a backend to a meal planning, recipie storing app",
+    "main": "index.js",
+    "repository": "git@github.com:blotty23/recipie-meal-planner-backend.git",
+    "author": "Emma <blott23@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "dotenv": "^16.0.0",
+        "jest": "^27.5.1",
+        "jest-fetch-mock": "^3.0.3",
+        "husky": "^7.0.0"
+    },
+    "dependencies": {},
+    "scripts": {
+        "test": "yarn run jest --config jest.config.json --passWithNoTests;",
+        "prepare": "husky install",
+        "ci-install": "find . -name package.json ! -path \"**/node_modules/**\" -execdir yarn \\;"
+    }
+}

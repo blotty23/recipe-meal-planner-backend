@@ -1,0 +1,28 @@
+name: On merge main
+on:
+    push:
+        branches:
+            - main
+jobs:
+    run-jest-tests:
+        uses: blotty23/recipe-meal-planner-backend/.github/workflows/run-tests.yml@main
+    deploy-to-prod:
+        name: Deploy production stack to AWS
+        needs: [run-jest-tests]
+        runs-on: ubuntu-latest
+        # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+        permissions:
+            id-token: write
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Configure AWS credentials for Production Account
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-region: eu-west-2
+                  role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.AWS_OIDC_ROLE_NAME }}
+                  role-session-name: GitHubActionsTempSession
+            - name: Deploy the prod stack
+              run: |
+                  ./make-prod.sh

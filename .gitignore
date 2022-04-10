@@ -1,0 +1,13 @@
+.vscode
+.temp-stuff
+personal-notes/**
+
+
+# yarn and npm stuff
+yarn-error.log
+functions/**/node_modules/**
+deployedLayers/**
+node_modules/**
+
+.env
+node_modules

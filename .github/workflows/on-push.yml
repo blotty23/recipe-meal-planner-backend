@@ -1,0 +1,9 @@
+name: On push
+on:
+    push:
+        branches-ignore:
+            - main
+
+jobs:
+    run-jest-tests:
+        uses: blotty23/recipe-meal-planner-backend/.github/workflows/run-tests.yml@main
